@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'dashboard.dart';
+import 'dashboard/dashboard.dart';
 import 'landingpage.dart';
 import 'contact.dart';
 
@@ -11,7 +11,9 @@ class mainhomepage extends StatefulWidget {
 
 class _mainhomepageState extends State<mainhomepage> {
 
+  // this will indicate to which icon of the bottom navigation bar is been tapped
   var _onTapIndex=0;
+  // this will only change the main body part of the app according to the page is been selected
   var _bodyUI;
 
   @override
@@ -68,8 +70,6 @@ class _mainhomepageState extends State<mainhomepage> {
               }
             });
           },
-
-
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(LineIcons.home), 
@@ -80,12 +80,11 @@ class _mainhomepageState extends State<mainhomepage> {
               title: new Text('Dashboard'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(LineIcons.book),
-              title: new Text('Library'),
+              icon: Icon(Icons.person),
+              title: new Text('Profile'),
             ),
           ],
         ),
-
         body: _bodyUI,
       ),
     );

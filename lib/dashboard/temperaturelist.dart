@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/weather.dart';
-import 'temperature.dart';
+import 'package:sensegrass/data/temperature.dart';
 
 
 class templist extends StatefulWidget {

@@ -17,7 +17,6 @@ class _dashboardState extends State<dashboard> {
     // TODO: implement initState
     super.initState();
     _NPKcolor = 0xFF000000;
-
     _page = npkgraph();
   }
 
@@ -48,7 +47,7 @@ class _dashboardState extends State<dashboard> {
                     },
                     child: new Text('NPK',
                       style: new TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 17.0,
                         color: Color(_NPKcolor),
                       ),
                     ),
@@ -65,7 +64,7 @@ class _dashboardState extends State<dashboard> {
                     },
                     child: new Text('TEMPERATURE',
                       style: new TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 17.0,
                         color: Color(_TEMPcolor),
                       ),
                     ),
@@ -81,7 +80,7 @@ class _dashboardState extends State<dashboard> {
                     },
                     child: new Text('GRAPH',
                       style: new TextStyle(
-                        fontSize: 15.0,
+                        fontSize: 17.0,
                         color: Color(_GRAPHcolor),
                       ),
                     ),
