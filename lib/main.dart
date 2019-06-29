@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:weather/weather.dart';
 import 'homepage.dart';
+import 'login/login.dart';
 
 void main() => runApp(new MaterialApp(
   home: homepage(),
@@ -24,7 +25,7 @@ class _homepageState extends State<homepage> {
     // getweather();
 
     Timer(Duration(seconds: 2), (){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>mainhomepage()));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>loginpage()));
     });
 
     super.initState();

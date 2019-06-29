@@ -50,6 +50,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  firebase_auth:
+    dependency: "direct dev"
+    description:
+      name: firebase_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.1+7"
+  firebase_core:
+    dependency: transitive
+    description:
+      name: firebase_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0+6"
   flare_dart:
     dependency: transitive
     description:
@@ -76,6 +90,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0"
+  flutter_secure_storage:
+    dependency: "direct dev"
+    description:
+      name: flutter_secure_storage
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.1+1"
   flutter_sparkline:
     dependency: "direct main"
     description:
@@ -88,6 +109,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_twitter_login:
+    dependency: "direct dev"
+    description:
+      name: flutter_twitter_login
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   geocoder:
     dependency: "direct main"
     description:
@@ -102,6 +130,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.19"
+  google_sign_in:
+    dependency: "direct dev"
+    description:
+      name: google_sign_in
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.2"
   http:
     dependency: transitive
     description:

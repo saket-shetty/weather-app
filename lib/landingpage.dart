@@ -39,6 +39,7 @@ class _landingState extends State<landing> {
   var air_pressure;
   var humidity;
   var wind_speed;
+  var predicted_temp;
 
   List<double> Maxdata = [];
   List<double> Mindata = [];
@@ -99,7 +100,6 @@ class _landingState extends State<landing> {
 
     List<Weather> forecasts = await weatherStation.fiveDayForecast();
 
-  
 
     //Max Temp of previous 20 days and will be ploted in line graph
     for(var x in forecasts){
@@ -107,7 +107,17 @@ class _landingState extends State<landing> {
       if(Maxdata.length == 20){
         break;
       }
-    }    
+    }
+
+    int temp_count = 0;
+    for(var temp in forecasts){
+      predicted_temp = temp.temperature.celsius.floorToDouble();
+      print('temp :$predicted_temp');
+      temp_count++;
+      if(temp_count == 2){
+        break;
+      }
+    }
 
     //Min Temp of previous 20 days and will be ploted in line graph
     for(var y in forecasts){
@@ -254,19 +264,6 @@ class _landingState extends State<landing> {
               ],
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            child: Card(
-              child: GoogleMap(
-                mapType: MapType.hybrid,
-                initialCameraPosition: _kGooglePlex,
-                onMapCreated: (GoogleMapController controller) {
-                  _completer.complete(controller);
-                },
-              ),
-            ),
-          ),
           new Row(
             children: <Widget>[
               Container(
@@ -379,8 +376,59 @@ class _landingState extends State<landing> {
                   ),
                 ),
               ),
+              new Container(
+                width: MediaQuery.of(context).size.width/2,
+                child: new Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text('Predicted Temperature',
+                          style: new TextStyle(
+                            fontSize: MediaQuery.of(context).size.width/20,
+                          )
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10),
+                        ),
+                        new Row(  
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text('$predicted_temp',
+                              style: new TextStyle(
+                                fontSize: 32.0,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                print(MediaQuery.of(context).size.width/10);
+                              },
+                              child: new Icon(MdiIcons.thermometer,size: MediaQuery.of(context).size.width/10,)),
+                          ],
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10.0)
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
-          )
+          ),
+          new Container(
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+            child: Card(
+              child: GoogleMap(
+                mapType: MapType.hybrid,
+                initialCameraPosition: _kGooglePlex,
+                onMapCreated: (GoogleMapController controller) {
+                  _completer.complete(controller);
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

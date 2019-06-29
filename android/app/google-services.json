@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "447041128057",
+    "firebase_url": "https://sensegrass-3408e.firebaseio.com",
+    "project_id": "sensegrass-3408e",
+    "storage_bucket": "sensegrass-3408e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447041128057:android:0e9954330a6cfbaf",
+        "android_client_info": {
+          "package_name": "com.example.sensegrass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447041128057-47d2g4gk3r1nvs2tqqanqic6bbak0rbg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sensegrass",
+            "certificate_hash": "151e7bc55f21d6d7e1ec78b59c7b4cca07ed385d"
+          }
+        },
+        {
+          "client_id": "447041128057-t89s10ntkbhcbd5kv055jh7djr2l04dh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjce37z600IVAeLQKBFqJFinQQROSeK2s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447041128057-t89s10ntkbhcbd5kv055jh7djr2l04dh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
