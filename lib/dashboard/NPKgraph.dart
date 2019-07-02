@@ -52,7 +52,7 @@ class _npkgraphState extends State<npkgraph> {
             child: new charts.PieChart(
               _seriesPieData,
               animate: true,
-              animationDuration: Duration(seconds: 3),
+              animationDuration: Duration(seconds: 2),
                 behaviors: [
               new charts.DatumLegend(
                 outsideJustification: charts.OutsideJustification.endDrawArea,

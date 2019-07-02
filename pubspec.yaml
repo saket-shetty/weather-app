@@ -43,6 +43,7 @@ dev_dependencies:
   google_sign_in: ^4.0.2
   flutter_twitter_login: ^1.1.0
   flutter_secure_storage: ^3.2.1+1
+  
 
 
 
@@ -64,6 +65,8 @@ flutter:
    - asset/background2.jpg
    - sensegreen.flr
    - asset/anim.flr
+   - asset/profilebg.jpg
+   - asset/bgimageprofile.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -76,13 +79,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
+  fonts:
+    - family: SourceSansPro
+      fonts:
+        - asset: fonts/SourceSansPro-Italic.ttf
+          style: italic
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf

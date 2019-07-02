@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'login/login.dart';
 
 class contact extends StatefulWidget {
   @override
@@ -7,13 +9,41 @@ class contact extends StatefulWidget {
 
 class _contactState extends State<contact> {
 
+  // These are the textfield controller same as .getString in java
+  // Future work: _email and _name will get from the login page so that user doesnot have to type again
+  // the data will be transfer using the flutter secure store
+  // eg. var email = await storage.read(key: 'user-email');
   TextEditingController _email,_name,_subject,_message = new TextEditingController();
+  final storage = new FlutterSecureStorage();
+  String user_email, user_name;
+  var name= 'saket';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    get_email_name();
+  }
+
+  Future get_email_name() async{
+    var ret_user_email = await storage.read(key: 'user-email');
+    var ret_user_name = await storage.read(key: 'user-name');
+    print(ret_user_email);
+    print(ret_user_name);
+    setState((){
+      user_email = ret_user_email;
+      user_name = ret_user_name;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       resizeToAvoidBottomPadding: true,
+
+      //App bar of the contact page
+
       appBar: new AppBar(
         title: new Text('Contact',
           style: new TextStyle(
@@ -24,6 +54,9 @@ class _contactState extends State<contact> {
         centerTitle: true,
         backgroundColor: Colors.deepPurpleAccent,
       ),
+
+      // Body of the contact page
+
       body: SingleChildScrollView(
           child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -43,6 +76,9 @@ class _contactState extends State<contact> {
                   ),
                 ),
                 SizedBox(height: 8.0),
+
+                // Textfield of the email which will be autofill
+
                 new TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _email,
@@ -53,6 +89,9 @@ class _contactState extends State<contact> {
                   ),
                 ),
                 SizedBox(height: 8.0),
+
+                // Textfield of the name which will be autofill
+
                 new TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _name,
@@ -63,6 +102,9 @@ class _contactState extends State<contact> {
                   ),
                 ),
                 SizedBox(height: 8.0),
+
+                // Textfield of the subject
+
                 new TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: _subject,
@@ -82,17 +124,25 @@ class _contactState extends State<contact> {
                   ),
                 ),
                 SizedBox(height: 8.0),
+
+                // Textfield of the message
+
                 new TextFormField(
                   controller: _message,
                   maxLines: 10,
                   decoration: InputDecoration(
-                    hintText: 'name',
+                    hintText: 'Message',
                     labelText: "Enter Message",
                     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
                   ),
                 ),
                 SizedBox(height: 8.0),
+
+                // Submit button which will take all the data from the text controller
+                // Button will not worl since there is no ontap function is given to it
+                // Future: using GestureDetection or InkWell and onTap:
+
                 new Center(
                   child: new Container(
                     width: 120,
@@ -110,7 +160,7 @@ class _contactState extends State<contact> {
                       borderRadius: new BorderRadius.circular(25.0)
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

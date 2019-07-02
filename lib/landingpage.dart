@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:weather/weather.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
@@ -40,12 +41,15 @@ class _landingState extends State<landing> {
   var humidity;
   var wind_speed;
   var predicted_temp;
+  var weather_description;
 
   List<double> Maxdata = [];
   List<double> Mindata = [];
   List<double> _graphdata;
 
   var dropdownValue= 'MaxTemp';
+
+  final storage = new FlutterSecureStorage();
 
 
   //list of different icons which will change after the right time it inclued:
@@ -83,20 +87,25 @@ class _landingState extends State<landing> {
       CameraPosition(
         target: LatLng(weather.latitude,weather.longitude),
         zoom: 15.0,
-        )));
+        ),
+      ),
+    );
 
     //Location of the user Using GeoCoder Api
     final coordinates = new Coordinates(weather.latitude, weather.longitude);
     addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     first = addresses.first;
 
+
     air_pressure = weather.pressure;
     humidity = weather.humidity;
-    wind_speed = weather.windSpeed;
+    wind_speed = (weather.windSpeed * 3.6).floorToDouble();
+    weather_description = weather.weatherDescription;
 
-    print('airpressure :$air_pressure');
-    print('humidity :$humidity');
-    print('windspeed :${wind_speed}');
+    
+
+    print('weather description :${weather.windDegree}');
+
 
     List<Weather> forecasts = await weatherStation.fiveDayForecast();
 
@@ -132,13 +141,16 @@ class _landingState extends State<landing> {
       this.celsius = celsius;
       this._area = first.subAdminArea;
     });
+    store_weather(_area, this.celsius, weather_description);
   }
 
   // Formated date (Month Date Year)
   Future get_date() async{
     format_date = new DateFormat.yMMMMd("en_US").format(now);
+    await storage.write(key: 'date', value: format_date);
     hour = now.hour;
     minute = now.minute;
+    await storage.write(key: 'time', value: hour.toString());
     setState((){});
   }
 
@@ -171,6 +183,12 @@ class _landingState extends State<landing> {
     _graphdata = Maxdata;
     // print(MediaQuery.of(context).size.width);
   }
+  
+  Future store_weather(var location, temp, description) async{
+    await storage.write(key: 'location', value: '$location');
+    await storage.write(key: 'temperature', value: '$temp');
+    await storage.write(key: 'descrip', value: '$description');
+  }
 
 
   @override
@@ -180,48 +198,68 @@ class _landingState extends State<landing> {
         children: <Widget>[
           new Card(
             color: Colors.blue[200],
-              child: new Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Padding(padding: new EdgeInsets.all(8.0),),
-                  new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  new Row(
                     children: <Widget>[
                       new Padding(padding: new EdgeInsets.all(8.0),),
-                      new Text('$_area,'+' ${format_date.toString()}',
-                      style: new TextStyle(
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w400,
+                      new Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          new Padding(padding: new EdgeInsets.all(8.0),),
+                          new Text('$_area,'+' ${format_date.toString()}',
+                          style: new TextStyle(
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          new Text('$celsius'+'\u02DA'+'C', 
+                          style: new TextStyle(
+                            fontSize: 35.0,
+                            fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          new Text('Time $hour:$minute',
+                            style: new TextStyle(
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w300
+                            ),
+                          ),
+                        ],
+                      ),
+                      new Spacer(
+                        flex: 2,
+                      ),
+                      new Container(
+                        child: new Icon(_categories[_categoryindex]['icon'],
+                        size: 50.0,
+                        color: Colors.yellow,
                         ),
                       ),
-                      new Text('$celsius'+'\u02DA'+'C', 
-                      style: new TextStyle(
-                        fontSize: 35.0,
-                        fontWeight: FontWeight.w400,
-                        ),
+                      new Spacer(
+                        flex: 1,
                       ),
-                      new Text('Time $hour:$minute',
-                        style: new TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w300
-                        ),
-                      ),
-                      new Padding(
-                        padding: new EdgeInsets.all(10.0),
-                      )
                     ],
                   ),
-                  new Spacer(
-                    flex: 1,
-                  ),
-                  new Container(
-                    child: new Icon(_categories[_categoryindex]['icon'],
-                    size: 50.0,
-                    color: Colors.yellow,
+                  Padding(
+                    padding: const EdgeInsets.only(left:8.0, right: 8.0),
+                    child: new Divider(
+                      color: Colors.black38,
                     ),
                   ),
-                  new Spacer(
-                    flex: 1,
+                  Padding(
+                    padding: const EdgeInsets.only(left:15.0),
+                    child: new Text(weather_description.toString(),
+                      textAlign: TextAlign.start,
+                      style: new TextStyle(
+                        fontSize: 16.0
+                      ),
+                    ),
                   ),
+                  new Padding(
+                    padding: new EdgeInsets.all(6.0),
+                  )
                 ],
               ),
           ),
@@ -356,7 +394,7 @@ class _landingState extends State<landing> {
                         new Row(  
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Text('$wind_speed',
+                            new Text('${wind_speed}',
                               style: new TextStyle(
                                 fontSize: 32.0,
                               ),
@@ -384,6 +422,7 @@ class _landingState extends State<landing> {
                     child: new Column(
                       children: <Widget>[
                         new Text('Predicted Temperature',
+                        textAlign: TextAlign.center,
                           style: new TextStyle(
                             fontSize: MediaQuery.of(context).size.width/20,
                           )

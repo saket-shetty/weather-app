@@ -72,7 +72,7 @@ class _templistState extends State<templist> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Padding(padding: new EdgeInsets.all(10.0),),
-                  new Text('Date :'+date_value.toString(),
+                  new Text('Date - '+date_value.toString(),
                   style: new TextStyle(
                     fontSize: 17.0,
                     ),

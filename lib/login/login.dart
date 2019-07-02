@@ -19,9 +19,11 @@ class _loginpageState extends State<loginpage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // Key value storage like MAP in java
   final storage = new FlutterSecureStorage();
 
   var user_id;
+  var user_email;
   var user_name;
   var user_profile;
   var user_sessionid;
@@ -44,8 +46,16 @@ class _loginpageState extends State<loginpage> {
     final FirebaseUser user = await _auth.signInWithCredential(credential);
 
     user_sessionid = googleAuth.accessToken;
+    user_name = googleUser.displayName;
+    user_email = googleUser.email;
+    user_profile = googleUser.photoUrl;
 
+    // It will store the data like shared preferences in key value pair
+    // It will store the session id / access token so that user doesnot have to login again and again 
     await storage.write(key: 'session-key', value: '$user_sessionid');
+    await storage.write(key: 'user-name', value: '$user_name');
+    await storage.write(key: 'user-email', value: '$user_email');
+    await storage.write(key: 'user-image', value: '$user_profile');
 
     print("signed in " + user.displayName);
     return null;
@@ -75,7 +85,13 @@ class _loginpageState extends State<loginpage> {
         print('twitter name :${result.session.userId}');
         print('${result.session.token}');
 
+        // It is same as the above key value pair
+        // But instead of google session id it will store twitter session id
+
         await storage.write(key: 'session-key', value: '$user_sessionid');
+        await storage.write(key: 'user-name', value: '$user_name');
+        await storage.write(key: 'user-image', value: '$user_profile');
+
 
         Navigator.push(context, MaterialPageRoute(builder: (context)=>mainhomepage()));
 
@@ -104,6 +120,9 @@ class _loginpageState extends State<loginpage> {
     get_session_token();
   }
 
+  // This function will check whether there is session stored or not
+  // If it found session id it will redirect the user to homepage
+  // If session id will not found user will be in the login page
   Future get_session_token() async{
     var session_token = await storage.read(key: 'session-key');
     if(session_token.isNotEmpty){
@@ -209,7 +228,11 @@ class _loginpageState extends State<loginpage> {
                     'Forgot password?',
                     style: TextStyle(color: Colors.black54),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    builder:(){
+                      theme: ThemeData.dark();
+                    };
+                  },
                 ),
 
                 new Padding(
@@ -237,7 +260,7 @@ class _loginpageState extends State<loginpage> {
                         child: Material(
                           borderRadius: BorderRadius.circular(25.0),
                           color: Colors.redAccent,
-                          shadowColor: Colors.lightBlue.withOpacity(0.8),
+                          shadowColor: Colors.redAccent.withOpacity(0.8),
                           elevation: 7.0,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

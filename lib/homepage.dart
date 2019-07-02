@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:sensegrass/login/login.dart';
 import 'dashboard/dashboard.dart';
 import 'landingpage.dart';
 import 'contact.dart';
+import 'profile/profile.dart';
 
 class mainhomepage extends StatefulWidget {
   @override
@@ -37,6 +40,9 @@ class _mainhomepageState extends State<mainhomepage> {
           ),
           centerTitle: true,
           elevation: 0.0,
+          iconTheme: IconThemeData(
+            opacity: 0.0
+          ),
         ),
 
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -66,6 +72,7 @@ class _mainhomepageState extends State<mainhomepage> {
               } else if (index == 2) {
                 setState(() {
                   _onTapIndex = 2;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>profile()));
                 });
               }
             });
