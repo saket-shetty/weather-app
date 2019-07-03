@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sensegrass/weather/weather.dart';
 import 'package:weather/weather.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
@@ -75,6 +76,12 @@ class _landingState extends State<landing> {
   Future getweather() async{
     WeatherStation weatherStation = new WeatherStation('d114a0ec1308a2466249008d46419b6c');
     Weather weather = await weatherStation.currentWeather();
+    var mintemp = weather.tempMin.celsius.toDouble();
+    var maxtemp = weather.tempMax.celsius.toDouble();
+
+    await storage.write(key: 'mintemp', value: '$mintemp');
+    await storage.write(key: 'maxtemp', value: '$maxtemp');
+
     celsius = weather.temperature.celsius.roundToDouble();
     this.celsius = celsius;
 
@@ -109,9 +116,10 @@ class _landingState extends State<landing> {
 
     List<Weather> forecasts = await weatherStation.fiveDayForecast();
 
-
+    print('$forecasts');
     //Max Temp of previous 20 days and will be ploted in line graph
     for(var x in forecasts){
+
       Maxdata.add(await x.tempMax.celsius.ceilToDouble());
       if(Maxdata.length == 20){
         break;
@@ -150,7 +158,7 @@ class _landingState extends State<landing> {
     await storage.write(key: 'date', value: format_date);
     hour = now.hour;
     minute = now.minute;
-    await storage.write(key: 'time', value: hour.toString());
+    await storage.write(key: 'time', value: hour.toString()+':'+minute.toString());
     setState((){});
   }
 
@@ -188,6 +196,7 @@ class _landingState extends State<landing> {
     await storage.write(key: 'location', value: '$location');
     await storage.write(key: 'temperature', value: '$temp');
     await storage.write(key: 'descrip', value: '$description');
+    await storage.write(key: 'icon', value: '${_categoryindex}');
   }
 
 
@@ -196,72 +205,77 @@ class _landingState extends State<landing> {
     return Scaffold(
       body: new ListView(
         children: <Widget>[
-          new Card(
-            color: Colors.blue[200],
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Row(
-                    children: <Widget>[
-                      new Padding(padding: new EdgeInsets.all(8.0),),
-                      new Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Padding(padding: new EdgeInsets.all(8.0),),
-                          new Text('$_area,'+' ${format_date.toString()}',
-                          style: new TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          new Text('$celsius'+'\u02DA'+'C', 
-                          style: new TextStyle(
-                            fontSize: 35.0,
-                            fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          new Text('Time $hour:$minute',
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>weather()));
+            },
+            child: new Card(
+              color: Colors.blue[200],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Row(
+                      children: <Widget>[
+                        new Padding(padding: new EdgeInsets.all(8.0),),
+                        new Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Padding(padding: new EdgeInsets.all(8.0),),
+                            new Text('$_area,'+' ${format_date.toString()}',
                             style: new TextStyle(
                               fontSize: 15.0,
-                              fontWeight: FontWeight.w300
+                              fontWeight: FontWeight.w400,
+                              ),
                             ),
+                            new Text('$celsius'+'\u02DA'+'C', 
+                            style: new TextStyle(
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            new Text('Time $hour:$minute',
+                              style: new TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.w300
+                              ),
+                            ),
+                          ],
+                        ),
+                        new Spacer(
+                          flex: 2,
+                        ),
+                        new Container(
+                          child: new Icon(_categories[_categoryindex]['icon'],
+                          size: 50.0,
+                          color: Colors.yellow,
                           ),
-                        ],
+                        ),
+                        new Spacer(
+                          flex: 1,
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:8.0, right: 8.0),
+                      child: new Divider(
+                        color: Colors.black38,
                       ),
-                      new Spacer(
-                        flex: 2,
-                      ),
-                      new Container(
-                        child: new Icon(_categories[_categoryindex]['icon'],
-                        size: 50.0,
-                        color: Colors.yellow,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:15.0),
+                      child: new Text(weather_description.toString(),
+                        textAlign: TextAlign.start,
+                        style: new TextStyle(
+                          fontSize: 16.0
                         ),
                       ),
-                      new Spacer(
-                        flex: 1,
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left:8.0, right: 8.0),
-                    child: new Divider(
-                      color: Colors.black38,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left:15.0),
-                    child: new Text(weather_description.toString(),
-                      textAlign: TextAlign.start,
-                      style: new TextStyle(
-                        fontSize: 16.0
-                      ),
-                    ),
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.all(6.0),
-                  )
-                ],
-              ),
+                    new Padding(
+                      padding: new EdgeInsets.all(6.0),
+                    )
+                  ],
+                ),
+            ),
           ),
           new Card(
             color: Colors.pink[200],

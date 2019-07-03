@@ -42,7 +42,7 @@ class _homepageState extends State<homepage> {
           // Background Image which in this case is some space image (as in the website)
           new Container(
             decoration: new BoxDecoration(
-              image: new DecorationImage(image: AssetImage('asset/profilebg.jpg'),
+              image: new DecorationImage(image: AssetImage('asset/background2.jpg'),
               fit: BoxFit.fitHeight,
               )
             ),
