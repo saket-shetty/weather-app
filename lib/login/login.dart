@@ -67,41 +67,56 @@ class _loginpageState extends State<loginpage> {
   //twitter api-key and secret-key 
   //It is also linked with my twitter account
   //Might have to change with the company's twitter account.
-  static final TwitterLogin twitterLogin = new TwitterLogin(
-    consumerKey: 'RJuHNmCNKx3FDanlG0AFeQfsk',
-    consumerSecret: '5UMj7QVGHkXpbCIx8SKjS5ofEWlR7ds6DNqPJBmuXuFy97rYNH',
-  );
+    Future<FirebaseUser> _loginWithTwitter() async {
+      var twitterLogin = new TwitterLogin(
+        consumerKey: 'RJuHNmCNKx3FDanlG0AFeQfsk',
+        consumerSecret: '5UMj7QVGHkXpbCIx8SKjS5ofEWlR7ds6DNqPJBmuXuFy97rYNH',
+      );
+      
 
-    void _handletwitterlogin() async {
-    final TwitterLoginResult result = await twitterLogin.authorize();
-    switch (result.status) {
-      case TwitterLoginStatus.loggedIn:
-        user_name = result.session.username;
-        user_profile =
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi-I5E9Vn6dFsuJnrJfJVcpNp6KNQ74ZSjKoGn5t9-pGLddxDG';
-        user_id = result.session.userId;
-        user_sessionid = result.session.token;
-        print('twitter name :${result.session.username}');
-        print('twitter name :${result.session.userId}');
-        print('${result.session.token}');
+      final TwitterLoginResult result = await twitterLogin.authorize();
 
-        // It is same as the above key value pair
-        // But instead of google session id it will store twitter session id
+      switch (result.status) {
+        case TwitterLoginStatus.loggedIn:
+          var session = result.session;
 
-        await storage.write(key: 'session-key', value: '$user_sessionid');
-        await storage.write(key: 'user-name', value: '$user_name');
-        await storage.write(key: 'user-image', value: '$user_profile');
+          final AuthCredential credential = TwitterAuthProvider.getCredential(
+            authToken: session.token,
+            authTokenSecret: result.session.secret,
+          );
 
+          FirebaseUser user = await _auth.signInWithCredential(credential);
 
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>mainhomepage()));
+          user_name = result.session.username;
+          user_profile =
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi-I5E9Vn6dFsuJnrJfJVcpNp6KNQ74ZSjKoGn5t9-pGLddxDG';
+          user_id = result.session.userId;
+          user_sessionid = result.session.token;
+          print('twitter name :${result.session.username}');
+          print('twitter name :${result.session.userId}');
+          print('${result.session.token}');
 
-        break;
-      case TwitterLoginStatus.cancelledByUser:
-        print('user canceled');
-        break;
-      case TwitterLoginStatus.error:
-        break;
+          // It is same as the above key value pair
+          // But instead of google session id it will store twitter session id
+
+          await storage.write(key: 'session-key', value: '$user_sessionid');
+          await storage.write(key: 'user-name', value: '$user_name');
+          await storage.write(key: 'user-image', value: '$user_profile');
+
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>mainhomepage()));
+
+          return user;
+          break;
+        case TwitterLoginStatus.cancelledByUser:
+          debugPrint(result.status.toString());
+          return null;
+          break;
+        case TwitterLoginStatus.error:
+          debugPrint(result.errorMessage.toString());
+          return null;
+          break;
       }
+      return null;
     }
     //Twitter sign-in part ends here
 
@@ -295,7 +310,7 @@ class _loginpageState extends State<loginpage> {
                       height: 50.0,
                       child: new InkWell(
                         onTap: () {
-                          _handletwitterlogin();
+                          _loginWithTwitter();
                         },
                         child: Material(
                           borderRadius: BorderRadius.circular(25.0),
