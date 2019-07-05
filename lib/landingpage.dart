@@ -203,6 +203,7 @@ class _landingState extends State<landing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: new ListView(
         children: <Widget>[
           GestureDetector(
@@ -277,6 +278,173 @@ class _landingState extends State<landing> {
                 ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top:15.0, bottom:15.0),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  new Text(
+                    'Crops Are ',
+                    style: new TextStyle(
+                      fontSize: 25.0,
+                      fontFamily: 'SourceSansPro'
+                    ),
+                  ),
+                  new Text(
+                    'HEALTHY',
+                    style: new TextStyle(
+                      fontSize: 25.0,
+                      fontFamily: 'SourceSansPro',
+                      color: Colors.green
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          
+          new Row(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width/2,
+                child: new Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text('Air Pressure',
+                          style: new TextStyle(
+                            fontSize: MediaQuery.of(context).size.width/20,
+                          )
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10),
+                        ),
+                        new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text('$air_pressure'+' Pa',
+                              style: new TextStyle(
+                                fontSize: 32.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10.0)
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width/2,
+                child: new Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text('Humidity',
+                          style: new TextStyle(
+                            fontSize: MediaQuery.of(context).size.width/20,
+                          )
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10),
+                        ),
+                        new Row(  
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text('$humidity'+' %',
+                              style: new TextStyle(
+                                fontSize: 32.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10.0)
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          new Row(
+            children: <Widget>[
+              new Container(
+                width: MediaQuery.of(context).size.width/2,
+                child: new Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text('Wind Speed',
+                          style: new TextStyle(
+                            fontSize: MediaQuery.of(context).size.width/20,
+                          )
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10),
+                        ),
+                        new Row(  
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text('${wind_speed}'+' m/s',
+                              style: new TextStyle(
+                                fontSize: 32.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10.0)
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              new Container(
+                width: MediaQuery.of(context).size.width/2,
+                child: new Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: new Column(
+                      children: <Widget>[
+                        new Text('Predicted Temperature',
+                        textAlign: TextAlign.center,
+                          style: new TextStyle(
+                            fontSize: MediaQuery.of(context).size.width/20,
+                          )
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10),
+                        ),
+                        new Row(  
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text('$predicted_temp'+'\u02DA'+'C',
+                              style: new TextStyle(
+                                fontSize: 32.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        new Padding(
+                          padding: new EdgeInsets.all(10.0)
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
           new Card(
             color: Colors.pink[200],
             child: Column(
@@ -315,159 +483,6 @@ class _landingState extends State<landing> {
                 ),
               ],
             ),
-          ),
-          new Row(
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width/2,
-                child: new Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Air Pressure',
-                          style: new TextStyle(
-                            fontSize: MediaQuery.of(context).size.width/20,
-                          )
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10),
-                        ),
-                        new Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text('$air_pressure',
-                              style: new TextStyle(
-                                fontSize: 32.0,
-                              ),
-                            ),
-                            new Icon(MdiIcons.weatherWindy,size: MediaQuery.of(context).size.width/10,),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10.0)
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width/2,
-                child: new Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Humidity',
-                          style: new TextStyle(
-                            fontSize: MediaQuery.of(context).size.width/20,
-                          )
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10),
-                        ),
-                        new Row(  
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text('$humidity',
-                              style: new TextStyle(
-                                fontSize: 32.0,
-                              ),
-                            ),
-                            new Icon(LineIcons.tachometer,size: MediaQuery.of(context).size.width/10,),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10.0)
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          new Row(
-            children: <Widget>[
-              new Container(
-                width: MediaQuery.of(context).size.width/2,
-                child: new Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Wind Speed',
-                          style: new TextStyle(
-                            fontSize: MediaQuery.of(context).size.width/20,
-                          )
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10),
-                        ),
-                        new Row(  
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text('${wind_speed}',
-                              style: new TextStyle(
-                                fontSize: 32.0,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                print(MediaQuery.of(context).size.width/10);
-                              },
-                              child: new Icon(MdiIcons.weatherWindy,size: MediaQuery.of(context).size.width/10,)),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10.0)
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              new Container(
-                width: MediaQuery.of(context).size.width/2,
-                child: new Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Predicted Temperature',
-                        textAlign: TextAlign.center,
-                          style: new TextStyle(
-                            fontSize: MediaQuery.of(context).size.width/20,
-                          )
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10),
-                        ),
-                        new Row(  
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text('$predicted_temp',
-                              style: new TextStyle(
-                                fontSize: 32.0,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                print(MediaQuery.of(context).size.width/10);
-                              },
-                              child: new Icon(MdiIcons.thermometer,size: MediaQuery.of(context).size.width/10,)),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10.0)
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
           new Container(
             width: MediaQuery.of(context).size.width,

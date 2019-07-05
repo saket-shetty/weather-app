@@ -29,9 +29,12 @@ class _weatherState extends State<weather> {
     WeatherStation weatherStation = new WeatherStation('d114a0ec1308a2466249008d46419b6c');
     List<Weather> weather = await weatherStation.fiveDayForecast();
 
+    List listindex = [0,1,8,16,22];
+
     var stringmonth;
 
     for(var x in weather){
+
       var month = x.date.month;
       if(month == 1){
         stringmonth = 'Jan';
@@ -46,7 +49,7 @@ class _weatherState extends State<weather> {
         stringmonth = 'April';
       }
       else if(month == 5){
-        stringmonth = 'may';
+        stringmonth = 'May';
       }
       else if(month == 6){
         stringmonth = 'June';
@@ -70,28 +73,26 @@ class _weatherState extends State<weather> {
         stringmonth = 'Dec';
       }
 
+      var time = x.date.hour.toString() +':'+ x.date.minute.toString() +':'+ x.date.second.toString();
 
       if(x.weatherMain == 'Rain'){
-        weatherdata data_weather = new weatherdata(x.date.day.toString(), stringmonth, x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_cloudy);
+        weatherdata data_weather = new weatherdata(x.date.day.toString(), time, stringmonth, x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_cloudy);
+        
         allData.add(data_weather);
 
         print('Rain');
       }
       else if(x.cloudiness >= 70){
         print('cloudy');
-        weatherdata data_weather = new weatherdata(x.date.day.toString(),x.date.month,x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_cloudy);
+        weatherdata data_weather = new weatherdata(x.date.day.toString(), time, x.date.month, x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_cloudy);
         allData.add(data_weather);
       }
       else{
-        weatherdata data_weather = new weatherdata(x.date.day.toString(),x.date.month,x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_sunny);
+        weatherdata data_weather = new weatherdata(x.date.day.toString(), time, x.date.month,x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_sunny);
         allData.add(data_weather);
       }
 
       print(x.weatherDescription+':'+x.weatherMain+':'+x.cloudiness.toString()+':');
-    }
-
-    for(var z in allData){
-      allData.toSet().toList();
     }
 
     if(icon_category == 0){
@@ -104,11 +105,13 @@ class _weatherState extends State<weather> {
       card_icon = LineIcons.moon_o;
     }
 
-    setState((){
-      allData.toSet().toList();
-    });
     
-    allData.toSet().toList();
+
+
+    setState((){
+      
+    });
+
   }
 
   
@@ -225,12 +228,32 @@ class _weatherState extends State<weather> {
                         child: new Text(description.toString(),
                           textAlign: TextAlign.start,
                           style: new TextStyle(
-                            fontSize: 16.0
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w700
+                          ),
+                        ),
+                      ),
+                      new Padding(
+                        padding: new EdgeInsets.all(3.0),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:15.0),
+                        child: new Text('Today would be a BAD day for APPLYING PESTICIDES',
+                          textAlign: TextAlign.start,
+                          style: new TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w600
                           ),
                         ),
                       ),
                       new Padding(
                         padding: new EdgeInsets.all(6.0),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:8.0, right: 8.0),
+                        child: new Divider(
+                          color: Colors.black38,
+                        ),
                       ),
                     ],
                   ),
@@ -257,7 +280,9 @@ class _weatherState extends State<weather> {
                   scrollDirection: Axis.horizontal,
                   itemCount: allData.length,
                   itemBuilder: (_, index){
+                    
                     return UI(allData[index].date,
+                              allData[index].time,
                               allData[index].month,
                               allData[index].temperature,
                               allData[index].icondata,
@@ -273,10 +298,10 @@ class _weatherState extends State<weather> {
     );
   }
 
-  Widget UI(var date, var month, var temp, IconData icon, var descrip){
+  Widget UI(var date, var time, var month, var temp, IconData icon, var descrip){
     return Container(
       color: Colors.grey[200],
-      height: 100.0,
+      height: 200.0,
       child: Padding(
         padding: const EdgeInsets.only(left:8.0, right: 8.0, top:8.0),
         child: Row(
@@ -290,7 +315,13 @@ class _weatherState extends State<weather> {
                   ),
                 ),
                 new Padding(
-                  padding: new EdgeInsets.all(8.0),
+                  padding: new EdgeInsets.all(4.0),
+                ),
+                new Text(
+                  '$time'
+                ),
+                new Padding(
+                  padding: new EdgeInsets.all(4.0),
                 ),
                 new Icon(
                   icon,
@@ -298,7 +329,7 @@ class _weatherState extends State<weather> {
                   color: Colors.blue,
                 ),
                 new Padding(
-                  padding: new EdgeInsets.all(8.0),
+                  padding: new EdgeInsets.all(5.0),
                 ),
                 new Text('$temp'+'\u02DA'+'C',
                   style: new TextStyle(
