@@ -11,14 +11,14 @@ class npkgraph extends StatefulWidget {
 
 class _npkgraphState extends State<npkgraph> {
 
-  List<charts.Series<Task, String>> _seriesPieData;
+  static List<charts.Series<Task, String>> _seriesPieData;
   _generateData() {
-  var piedata = [
-    new Task('SoilPH', 35.8, Color(0xff3366cc)),
-    new Task('NITROGEN', 8.3, Color(0xff990099)),
-    new Task('AMMONIA', 10.8, Color(0xff109618)),
-    new Task('Soil Humidity', 15.6, Color(0xfffdbe19)),
-    new Task('NDVI', 19.2, Color(0xffff9900)),
+  final piedata = [
+    new Task('Soil PH', 7, Color(0xff3366cc)),
+    new Task('NITROGEN', 10.3, Color(0xff990099)),
+    new Task('Temperature', 5.8, Color(0xff109618)),
+    new Task('Soil Humidity', 30.6, Color(0xfffdbe19)),
+    new Task('NDVI', 20.2, Color(0xffff9900)),
     new Task('Water Stress', 10.3, Color(0xffdc3912)),
   ];
 
@@ -30,9 +30,13 @@ class _npkgraphState extends State<npkgraph> {
             charts.ColorUtil.fromDartColor(task.colorval),
         id: 'Air Pollution',
         data: piedata,
-         labelAccessorFn: (Task row, _) => '${row.taskvalue}',
+        
+         labelAccessorFn: (Task task, _) => '${task.taskvalue}',
       ),
     );
+    setState(() {
+      
+    });
   }
 
   @override
@@ -51,13 +55,12 @@ class _npkgraphState extends State<npkgraph> {
           child: Container(
             child: new charts.PieChart(
               _seriesPieData,
-              animate: true,
-              animationDuration: Duration(seconds: 2),
-                behaviors: [
-              new charts.DatumLegend(
+              animate: false,
+              behaviors: [
+                new charts.DatumLegend(
                 outsideJustification: charts.OutsideJustification.endDrawArea,
                 horizontalFirst: false,
-                desiredMaxRows: 3,
+                desiredMaxRows: 2,
                 cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
                 entryTextStyle: charts.TextStyleSpec(
                     color: charts.MaterialPalette.purple.shadeDefault,
@@ -66,14 +69,17 @@ class _npkgraphState extends State<npkgraph> {
               )
               ],
               defaultRenderer: new charts.ArcRendererConfig(
-              arcWidth: 100,
-              arcRendererDecorators: [
-              new charts.ArcLabelDecorator(
-                  labelPosition: charts.ArcLabelPosition.inside)
-            ])
+                arcRendererDecorators: [new charts.ArcLabelDecorator(
+                  insideLabelStyleSpec: new charts.TextStyleSpec(                
+                    fontSize: 18,
+                    color: charts.MaterialPalette.white,
+                  ),
+                ),
+              ]
             ),
           ),
         ),
+      ),
     );
   }
 }

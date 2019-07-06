@@ -171,10 +171,10 @@ class _landingState extends State<landing> {
         _categoryindex = 0;
     }else if(timeOfDay >= 15 && timeOfDay < 19){
         //afternon
-        _categoryindex = 0;
+        _categoryindex = 1;
     }else if(timeOfDay >= 19 && timeOfDay < 21){
         //evening
-        _categoryindex = 2;
+        _categoryindex = 1;
     }else if(timeOfDay >= 21 && timeOfDay < 24){
         //night
         _categoryindex = 2;
@@ -394,7 +394,7 @@ class _landingState extends State<landing> {
                         new Row(  
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Text('${wind_speed}'+' m/s',
+                            new Text('${wind_speed}'+' km/h',
                               style: new TextStyle(
                                 fontSize: 32.0,
                               ),
@@ -416,7 +416,7 @@ class _landingState extends State<landing> {
                     padding: const EdgeInsets.all(10.0),
                     child: new Column(
                       children: <Widget>[
-                        new Text('Predicted Temperature',
+                        new Text('Predicted Temp',
                         textAlign: TextAlign.center,
                           style: new TextStyle(
                             fontSize: MediaQuery.of(context).size.width/20,
