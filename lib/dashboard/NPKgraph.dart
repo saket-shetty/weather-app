@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:sensegrass/data/graphdata.dart';
+import 'package:sensegrass/charts/lineargraph.dart';
+import 'package:sensegrass/charts/piechart.dart';
 
 
 class npkgraph extends StatefulWidget {
@@ -12,6 +15,10 @@ class npkgraph extends StatefulWidget {
 class _npkgraphState extends State<npkgraph> {
 
   static List<charts.Series<Task, String>> _seriesPieData;
+
+  var dropdownValue;
+  var _graphpage;
+
   _generateData() {
   final piedata = [
     new Task('Soil PH', 7, Color(0xff3366cc)),
@@ -22,7 +29,7 @@ class _npkgraphState extends State<npkgraph> {
     new Task('Water Stress', 10.3, Color(0xffdc3912)),
   ];
 
-    _seriesPieData.add(
+   _seriesPieData.add(
       charts.Series(
         domainFn: (Task task, _) => task.task,
         measureFn: (Task task, _) => task.taskvalue,
@@ -30,13 +37,22 @@ class _npkgraphState extends State<npkgraph> {
             charts.ColorUtil.fromDartColor(task.colorval),
         id: 'Air Pollution',
         data: piedata,
-        
          labelAccessorFn: (Task task, _) => '${task.taskvalue}',
       ),
     );
-    setState(() {
-      
-    });
+
+    return [
+      new charts.Series<Task, String>(
+        id: 'Sales',
+        domainFn: (Task sales, _) => sales.task,
+        measureFn: (Task sales, _) => sales.taskvalue,
+        data: piedata,
+        
+        // Set a label accessor to control the text of the bar label.
+        labelAccessorFn: (Task sales, _) =>
+            '${sales.task}',
+      ),
+    ];
   }
 
   @override
@@ -44,6 +60,8 @@ class _npkgraphState extends State<npkgraph> {
     // TODO: implement initState
     _seriesPieData = List<charts.Series<Task, String>>();
     _generateData();
+    this._graphpage = lineargraph();
+    dropdownValue = 'LinearGraph';
     super.initState();
   }
 
@@ -53,30 +71,33 @@ class _npkgraphState extends State<npkgraph> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            child: new charts.PieChart(
-              _seriesPieData,
-              animate: false,
-              behaviors: [
-                new charts.DatumLegend(
-                outsideJustification: charts.OutsideJustification.endDrawArea,
-                horizontalFirst: false,
-                desiredMaxRows: 2,
-                cellPadding: new EdgeInsets.only(right: 4.0, bottom: 4.0),
-                entryTextStyle: charts.TextStyleSpec(
-                    color: charts.MaterialPalette.purple.shadeDefault,
-                    fontFamily: 'Georgia',
-                    fontSize: 11),
+          child: Column(
+            children: <Widget>[
+              DropdownButton<String>(
+                    value: dropdownValue,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                        if(newValue == 'LinearGraph'){
+                          this._graphpage = lineargraph();
+                        }
+                        else{
+                          this._graphpage = piechart();
+                        }
+                      });
+                    },
+                items: <String>['LinearGraph', 'PieChart']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+              new Expanded(
+                child: _graphpage,
               )
-              ],
-              defaultRenderer: new charts.ArcRendererConfig(
-                arcRendererDecorators: [new charts.ArcLabelDecorator(
-                  insideLabelStyleSpec: new charts.TextStyleSpec(                
-                    fontSize: 18,
-                    color: charts.MaterialPalette.white,
-                  ),
-                ),
-              ]
-            ),
+            ],
           ),
         ),
       ),
@@ -84,10 +105,3 @@ class _npkgraphState extends State<npkgraph> {
   }
 }
 
-class Task {
-  String task;
-  double taskvalue;
-  Color colorval;
-
-  Task(this.task, this.taskvalue, this.colorval);
-}
