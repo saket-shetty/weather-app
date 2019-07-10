@@ -2,19 +2,20 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sensegrass/weather/airpressure.dart';
 import 'package:sensegrass/weather/weather.dart';
+import 'package:sensegrass/weather/windspeed.dart';
 import 'package:weather/weather.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:sensegrass/weather/soilhumidity.dart';
 
 class landing extends StatefulWidget {
   @override
   final Widget child;
-
   landing({Key key, this.child}) : super(key: key);
   _landingState createState() => _landingState();
 }
@@ -111,7 +112,7 @@ class _landingState extends State<landing> {
 
     
 
-    print('weather description :${weather.windDegree}');
+    print('weather description wind speed:${weather.windSpeed}');
 
 
     List<Weather> forecasts = await weatherStation.fiveDayForecast();
@@ -306,68 +307,78 @@ class _landingState extends State<landing> {
           
           new Row(
             children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width/2,
-                child: new Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Air Pressure',
-                          style: new TextStyle(
-                            fontSize: MediaQuery.of(context).size.width/20,
-                          )
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10),
-                        ),
-                        new Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text('$air_pressure'+' Pa',
-                              style: new TextStyle(
-                                fontSize: 32.0,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>airpressure()));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  child: new Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: new Column(
+                        children: <Widget>[
+                          new Text('Air Pressure',
+                            style: new TextStyle(
+                              fontSize: MediaQuery.of(context).size.width/20,
+                            )
+                          ),
+                          new Padding(
+                            padding: new EdgeInsets.all(10),
+                          ),
+                          new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Text('$air_pressure'+' Pa',
+                                style: new TextStyle(
+                                  fontSize: 32.0,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10.0)
-                        ),
-                      ],
+                            ],
+                          ),
+                          new Padding(
+                            padding: new EdgeInsets.all(10.0)
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width/2,
-                child: new Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Humidity',
-                          style: new TextStyle(
-                            fontSize: MediaQuery.of(context).size.width/20,
-                          )
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10),
-                        ),
-                        new Row(  
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text('$humidity'+' %',
-                              style: new TextStyle(
-                                fontSize: 32.0,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>soilhumidity()));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  child: new Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: new Column(
+                        children: <Widget>[
+                          new Text('Humidity',
+                            style: new TextStyle(
+                              fontSize: MediaQuery.of(context).size.width/20,
+                            )
+                          ),
+                          new Padding(
+                            padding: new EdgeInsets.all(10),
+                          ),
+                          new Row(  
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Text('$humidity'+' %',
+                                style: new TextStyle(
+                                  fontSize: 32.0,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10.0)
-                        ),
-                      ],
+                            ],
+                          ),
+                          new Padding(
+                            padding: new EdgeInsets.all(10.0)
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -376,35 +387,42 @@ class _landingState extends State<landing> {
           ),
           new Row(
             children: <Widget>[
-              new Container(
-                width: MediaQuery.of(context).size.width/2,
-                child: new Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: new Column(
-                      children: <Widget>[
-                        new Text('Wind Speed',
-                          style: new TextStyle(
-                            fontSize: MediaQuery.of(context).size.width/20,
-                          )
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10),
-                        ),
-                        new Row(  
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Text('${wind_speed}'+' km/h',
-                              style: new TextStyle(
-                                fontSize: 32.0,
+              GestureDetector(
+
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>windspeed()));
+                },
+
+                child: new Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  child: new Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: new Column(
+                        children: <Widget>[
+                          new Text('Wind Speed',
+                            style: new TextStyle(
+                              fontSize: MediaQuery.of(context).size.width/20,
+                            )
+                          ),
+                          new Padding(
+                            padding: new EdgeInsets.all(10),
+                          ),
+                          new Row(  
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Text('$wind_speed'+' km/h',
+                                style: new TextStyle(
+                                  fontSize: 32.0,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        new Padding(
-                          padding: new EdgeInsets.all(10.0)
-                        ),
-                      ],
+                            ],
+                          ),
+                          new Padding(
+                            padding: new EdgeInsets.all(10.0)
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -445,45 +463,45 @@ class _landingState extends State<landing> {
               ),
             ],
           ),
-          new Card(
-            color: Colors.pink[200],
-            child: Column(
-              children: <Widget>[
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                      if(newValue == 'MinTemp'){
-                        _graphdata = Mindata;
-                      }
-                      else{
-                        _graphdata = Maxdata;
-                      }
-                    });
-                  },
-                  items: <String>['MaxTemp', 'MinTemp']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: _graphdata.length == 0 ? new CircularProgressIndicator() : 
-                  new Sparkline(
-                    data: _graphdata,
-                    pointsMode: PointsMode.all,
-                    pointSize: 12.0,
-                    pointColor: Colors.white70,
-                    lineColor: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // new Card(
+          //   color: Colors.pink[200],
+          //   child: Column(
+          //     children: <Widget>[
+          //       DropdownButton<String>(
+          //         value: dropdownValue,
+          //         onChanged: (String newValue) {
+          //           setState(() {
+          //             dropdownValue = newValue;
+          //             if(newValue == 'MinTemp'){
+          //               _graphdata = Mindata;
+          //             }
+          //             else{
+          //               _graphdata = Maxdata;
+          //             }
+          //           });
+          //         },
+          //         items: <String>['MaxTemp', 'MinTemp']
+          //             .map<DropdownMenuItem<String>>((String value) {
+          //           return DropdownMenuItem<String>(
+          //             value: value,
+          //             child: Text(value),
+          //           );
+          //         }).toList(),
+          //       ),
+          //       Padding(
+          //         padding: const EdgeInsets.all(15.0),
+          //         child: _graphdata.length == 0 ? new CircularProgressIndicator() : 
+          //         new Sparkline(
+          //           data: _graphdata,
+          //           pointsMode: PointsMode.all,
+          //           pointSize: 12.0,
+          //           pointColor: Colors.white70,
+          //           lineColor: Colors.white,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           new Container(
             width: MediaQuery.of(context).size.width,
             height: 200,
