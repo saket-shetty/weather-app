@@ -12,21 +12,21 @@ class windspeed extends StatefulWidget {
 class _windspeedState extends State<windspeed> {
 
 
-    final Color barColor = Colors.deepPurpleAccent;
-    final Color barBackgroundColor = const Color(0xff72d8bf);
-    final double width = 22;
+  final Color barColor = Colors.deepPurpleAccent;
+  final Color barBackgroundColor = const Color(0xff72d8bf);
+  final double width = 22;
 
-    var count = 0;
+  var count = 0;
 
-    static List weatherdata = [];
-    List days=[];
+  static List weatherdata = [];
+  List days=[];
 
-    List<BarChartGroupData> rawBarGroups;
-    List<BarChartGroupData> showingBarGroups;
+  List<BarChartGroupData> rawBarGroups;
+  List<BarChartGroupData> showingBarGroups;
 
-    StreamController<BarTouchResponse> barTouchedResultStreamController;
+  StreamController<BarTouchResponse> barTouchedResultStreamController;
 
-    int touchedGroupIndex;
+  int touchedGroupIndex;
 
     Future data_weather() async{
 
@@ -68,7 +68,7 @@ class _windspeedState extends State<windspeed> {
 
     final item = [];
 
-      for(var x=0; x<=5; x++){
+      for(var x=0; x<=6; x++){
         item.add(makeGroupData_windspeed(days[x], weatherdata[x]));
       }
 

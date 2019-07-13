@@ -66,7 +66,7 @@ class _airpressureState extends State<airpressure> {
         }
       }
 
-      for(var x=0; x<=5; x++){
+      for(var x=0; x<=6; x++){
         item.add(makeGroupData_airpressure(days[x], weatherdata[x]));
       }
 
@@ -229,7 +229,7 @@ class _airpressureState extends State<airpressure> {
     var backgroundBarChartRodData = BackgroundBarChartRodData(
           show: true,
           color: barBackgroundColor,
-          y: 1500,
+          y: 1100,
         );
     return BarChartGroupData(x: x, barRods: [
       BarChartRodData(

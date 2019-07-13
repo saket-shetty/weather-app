@@ -50,8 +50,9 @@ class _soilhumidityState extends State<soilhumidity> {
           days.add(5);
         }else if(day+y == 13){
           days.add(6);
-        }
+        }else{
         days.add(day+y);
+        }
       }
 
       for(var x in weather){
@@ -146,7 +147,7 @@ class _soilhumidityState extends State<soilhumidity> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Text(
-                "Soil Humidity",
+                "Humidity",
                 style: TextStyle(
                   color: Color(0xff0f4a3c), fontSize: 24, fontWeight: FontWeight.bold),
               ),

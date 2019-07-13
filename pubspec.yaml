@@ -27,14 +27,12 @@ dependencies:
   weather: ^0.9.4
   line_icons:
   intl:
-  geocoder: ^0.1.2
   pie_chart: ^1.0.0
   flutter_circular_chart: ^0.1.0
   flutter_sparkline: ^0.1.0
   charts_flutter: ^0.6.0
   google_maps_flutter: ^0.5.19
   fl_chart: ^0.1.2
-  
 
 dev_dependencies:
   flutter_test:

@@ -8,10 +8,9 @@ import 'package:sensegrass/weather/windspeed.dart';
 import 'package:weather/weather.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sensegrass/weather/soilhumidity.dart';
+import 'package:location/location.dart';
 
 class landing extends StatefulWidget {
   @override
@@ -53,6 +52,10 @@ class _landingState extends State<landing> {
 
   final storage = new FlutterSecureStorage();
 
+  var currentLocation = LocationData;
+
+  var location = new Location();
+
 
   //list of different icons which will change after the right time it inclued:
   // sun, cloud, moon
@@ -86,10 +89,6 @@ class _landingState extends State<landing> {
     celsius = weather.temperature.celsius.roundToDouble();
     this.celsius = celsius;
 
-    final query = "1600 Amphiteatre Parkway, Mountain View";
-    var addresses = await Geocoder.local.findAddressesFromQuery(query);
-    var first = addresses.first;
-
     final GoogleMapController controller = await _completer.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
@@ -99,16 +98,12 @@ class _landingState extends State<landing> {
       ),
     );
 
-    //Location of the user Using GeoCoder Api
-    final coordinates = new Coordinates(weather.latitude, weather.longitude);
-    addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    first = addresses.first;
-
-
     air_pressure = weather.pressure;
     humidity = weather.humidity;
     wind_speed = (weather.windSpeed * 3.6).floorToDouble();
     weather_description = weather.weatherDescription;
+
+    _area = weather.areaName;
 
     
 
@@ -145,10 +140,8 @@ class _landingState extends State<landing> {
       }
     }   
 
-    this._area = first.subAdminArea;
     setState((){
       this.celsius = celsius;
-      this._area = first.subAdminArea;
     });
     store_weather(_area, this.celsius, weather_description);
   }

@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:sensegrass/landingpage.dart';
+import 'homepage.dart';
 import 'login/login.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() => runApp(new MaterialApp(
   home: homepage(),
@@ -18,6 +21,26 @@ class homepage extends StatefulWidget {
 
 class _homepageState extends State<homepage> {
 
+  final storage = new FlutterSecureStorage();
+  var token = '122';
+
+  Future get_token() async{
+    token = await storage.read(key: 'session-key');
+
+    print('this is token :$token');
+
+    if(token != null){
+    Timer(Duration(seconds: 2), (){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> mainhomepage()));
+    });
+    }
+    else if(token == null){
+    Timer(Duration(seconds: 2), (){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> loginpage()));
+    });
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -25,10 +48,7 @@ class _homepageState extends State<homepage> {
     // It is the splash screen
     // This is the screen which will call as the app starts everytime
     // After 2 seconds it will redirect to the login page
-    Timer(Duration(seconds: 2), (){
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>loginpage()));
-    });
-
+    get_token();
     super.initState();
   }
 

@@ -132,19 +132,19 @@ class _loginpageState extends State<loginpage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    get_session_token();
+    // get_session_token();
   }
 
   // This function will check whether there is session stored or not
   // If it found session id it will redirect the user to homepage
   // If session id will not found user will be in the login page
-  Future get_session_token() async{
-    var session_token = await storage.read(key: 'session-key');
-    if(session_token.isNotEmpty){
-      print('session id exist :$session_token');
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>mainhomepage()));
-    } 
-  }
+  // Future get_session_token() async{
+  //   var session_token = await storage.read(key: 'session-key');
+  //   if(session_token.isNotEmpty){
+  //     print('session id exist :$session_token');
+  //     Navigator.push(context, MaterialPageRoute(builder: (context)=>mainhomepage()));
+  //   } 
+  // }
 
   @override
   Widget build(BuildContext context) {
