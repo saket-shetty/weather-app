@@ -92,7 +92,7 @@ class _landingState extends State<landing> {
     final GoogleMapController controller = await _completer.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
-        target: LatLng(weather.latitude,weather.longitude),
+        target: LatLng(weather.latitude, weather.longitude),
         zoom: 15.0,
         ),
       ),

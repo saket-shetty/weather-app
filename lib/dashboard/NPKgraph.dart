@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sensegrass/charts/lineargraph.dart';
-import 'package:sensegrass/charts/piechart.dart';
+// import 'package:sensegrass/charts/piechart.dart';
+import 'package:sensegrass/charts/columnchart.dart';
 
 
 class npkgraph extends StatefulWidget {
@@ -18,8 +19,8 @@ class _npkgraphState extends State<npkgraph> {
   @override
   void initState() {
     // TODO: implement initState
-    this._graphpage = lineargraph();
-    dropdownValue = 'LinearGraph';
+    this._graphpage = columnchart();
+    dropdownValue = 'PieChart';
     super.initState();
   }
 
@@ -40,7 +41,8 @@ class _npkgraphState extends State<npkgraph> {
                           this._graphpage = lineargraph();
                         }
                         else{
-                          this._graphpage = piechart();
+                          // this._graphpage = piechart();
+                          this._graphpage = columnchart();
                         }
                       });
                     },

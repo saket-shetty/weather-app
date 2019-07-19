@@ -82,6 +82,20 @@ class _weatherState extends State<weather> {
 
         print('Rain');
       }
+      else if(x.weatherMain == 'Clear'){
+        weatherdata data_weather = new weatherdata(x.date.day.toString(), time, stringmonth, x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_cloudy);
+        
+        allData.add(data_weather);
+
+        print('Rain');
+      }
+      else if(x.weatherMain == 'Clouds'){
+        weatherdata data_weather = new weatherdata(x.date.day.toString(), time, stringmonth, x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_cloudy);
+        
+        allData.add(data_weather);
+
+        print('Rain');
+      }
       else if(x.cloudiness >= 70){
         print('cloudy');
         weatherdata data_weather = new weatherdata(x.date.day.toString(), time, x.date.month, x.temperature.celsius.floorToDouble(), x.weatherMain, Icons.wb_cloudy);

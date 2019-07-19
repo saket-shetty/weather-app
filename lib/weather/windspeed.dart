@@ -12,8 +12,8 @@ class windspeed extends StatefulWidget {
 class _windspeedState extends State<windspeed> {
 
 
-  final Color barColor = Colors.deepPurpleAccent;
-  final Color barBackgroundColor = const Color(0xff72d8bf);
+  final Color barColor = Colors.deepPurple;
+  final Color barBackgroundColor = Colors.deepPurple[50];
   final double width = 22;
 
   var count = 0;
@@ -136,7 +136,7 @@ class _windspeedState extends State<windspeed> {
       ),
 
       body: Container(
-        color: Color(0xff81e5cd),
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -158,7 +158,15 @@ class _windspeedState extends State<windspeed> {
                   color: Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 38,
+                height: 10,
+              ),
+              Text(
+                "Tap and hold on the bar to get the reading",
+                style: TextStyle(
+                  color: Color(0xff379982), fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 28,
               ),
               new Container(
                child: weatherdata.length == 0 ? new Text('Wait a Minute') :

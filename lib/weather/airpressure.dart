@@ -11,8 +11,8 @@ class airpressure extends StatefulWidget {
 
 class _airpressureState extends State<airpressure> {
 
-      final Color barColor = Colors.deepPurpleAccent;
-    final Color barBackgroundColor = const Color(0xff72d8bf);
+      final Color barColor = Colors.deepPurple;
+    final Color barBackgroundColor = Colors.deepPurple[50];
     final double width = 22;
 
     var count = 0;
@@ -103,7 +103,7 @@ class _airpressureState extends State<airpressure> {
           if (touchedGroupIndex != -1) {
             showingBarGroups[touchedGroupIndex] = showingBarGroups[touchedGroupIndex].copyWith(
               barRods: showingBarGroups[touchedGroupIndex].barRods.map((rod) {
-                return rod.copyWith(color: Colors.yellow, y: rod.y + 1);
+                return rod.copyWith(color: Colors.deepPurpleAccent, y: rod.y + 1);
               }).toList(),
             );
           }
@@ -140,7 +140,7 @@ class _airpressureState extends State<airpressure> {
 
       body: Container(
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        color: Color(0xff81e5cd),
+        color: Colors.white54,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -162,7 +162,15 @@ class _airpressureState extends State<airpressure> {
                   color: Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 38,
+                height: 10,
+              ),
+              Text(
+                "Tap and hold on the bar to get the reading",
+                style: TextStyle(
+                  color: Color(0xff379982), fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 28,
               ),
               new Container(
                child: weatherdata.length == 0 ? new Text('Wait a Minute') :
@@ -174,7 +182,7 @@ class _airpressureState extends State<airpressure> {
 
                       barTouchData: BarTouchData(
                         touchTooltipData: TouchTooltipData(
-                          tooltipBgColor: Colors.blueGrey,
+                          tooltipBgColor: Colors.white,
                           getTooltipItems: (touchedSpots) {
                             return touchedSpots.map((touchedSpot) {
                               String weekDay;
@@ -188,7 +196,7 @@ class _airpressureState extends State<airpressure> {
                                 case 6: weekDay = 'Saturday'; break;
                                 case 7: weekDay = 'Sunday'; break;
                               }
-                              return TooltipItem(weekDay + '\n' + touchedSpot.spot.y.toDouble().toString(), TextStyle(color: Colors.yellow));
+                              return TooltipItem(weekDay + '\n' + touchedSpot.spot.y.toDouble().toString(), TextStyle(color: Colors.deepPurpleAccent));
                             }).toList();
                           }
                         ),

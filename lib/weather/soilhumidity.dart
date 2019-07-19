@@ -10,8 +10,8 @@ class soilhumidity extends StatefulWidget {
 
 class _soilhumidityState extends State<soilhumidity> {
 
-    final Color barColor = Colors.deepPurpleAccent;
-    final Color barBackgroundColor = const Color(0xff72d8bf);
+    final Color barColor = Colors.deepPurple;
+    final Color barBackgroundColor = Colors.deepPurple[50];
     final double width = 22;
 
     var count = 0;
@@ -138,7 +138,7 @@ class _soilhumidityState extends State<soilhumidity> {
 
       body: Container(
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        color: Color(0xff81e5cd),
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -160,7 +160,15 @@ class _soilhumidityState extends State<soilhumidity> {
                   color: Color(0xff379982), fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 38,
+                height: 10,
+              ),
+              Text(
+                "Tap and hold on the bar to get the reading",
+                style: TextStyle(
+                  color: Color(0xff379982), fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 28,
               ),
               new Container(
                child: weatherdata.length == 0 ? new Text('Wait a Minute') :
@@ -199,8 +207,10 @@ class _soilhumidityState extends State<soilhumidity> {
                         
                         horizontalTitlesTextStyle: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+
                         horizontalTitleMargin: 16,
                         ),
+                        
                       borderData: FlBorderData(
                         show: false,
                       ),

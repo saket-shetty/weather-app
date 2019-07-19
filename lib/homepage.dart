@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:sensegrass/login/login.dart';
 import 'dashboard/dashboard.dart';
 import 'landingpage.dart';
 import 'contact.dart';
@@ -56,6 +55,7 @@ class _mainhomepageState extends State<mainhomepage> {
         ),
 
         bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color.fromRGBO(64, 75, 96, .9),
           currentIndex: _onTapIndex,
           onTap: (int index){
             setState(() {
@@ -72,7 +72,9 @@ class _mainhomepageState extends State<mainhomepage> {
               } else if (index == 2) {
                 setState(() {
                   _onTapIndex = 2;
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>profile()));
+                  _bodyUI = profile();
+
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>profile()));
                 });
               }
             });
@@ -80,7 +82,7 @@ class _mainhomepageState extends State<mainhomepage> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(LineIcons.home), 
-              title: new Text('Home'),
+              title: new Text('Home',),
             ),
             BottomNavigationBarItem(
               icon: Icon(LineIcons.dashboard),

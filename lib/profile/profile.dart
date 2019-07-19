@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -18,7 +19,7 @@ class _profileState extends State<profile> {
 
   var user_name, user_profile;
   final storage = new FlutterSecureStorage();
-  var _cropcolor = 0xFF00FFFFFF, _weathercolor = 0xFF00FFFFFF;
+  var _cropcolor = 0xFFF44A4A, _weathercolor = 0xFF00FFFFFF;
   
   final FirebaseAuth _fAuth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = new GoogleSignIn();
@@ -47,55 +48,44 @@ class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Stack(
-          fit: StackFit.expand,
+      backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+      body: Column(
           children: <Widget>[
-            new Container(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  image: new ExactAssetImage('asset/profilebg.jpg'),
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
-              child: new BackdropFilter(
-                filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: new Container(
-                  decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                ),
-              ),
-            ),
-
             GestureDetector(
               onTap: (){
                 signout();
                 storage.deleteAll();
               },
-              child: Padding(
-                padding: const EdgeInsets.only(top:8.0, right: 8.0),
-                child: new Text('Log Out',
-                  textAlign: TextAlign.end,
-                  style: new TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top:8.0, right: 8.0),
+                  child: new Text('Log Out',
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold
+                    ),
                   ),
                 ),
               ),
             ),
 
+            user_profile == null ? new CircularProgressIndicator() :
             Center(
               child: new Column(      
                 children: <Widget>[
 
-                  new Padding(padding: new EdgeInsets.all(30.0),),
+                  new Padding(padding: new EdgeInsets.all(10.0),),
                   Container(
                   width: 120.0,
                   height: 120.0,
                   decoration: BoxDecoration(
                       color: Colors.deepPurpleAccent,
                       image: DecorationImage(
-                          image: NetworkImage(user_profile),
-                          fit: BoxFit.cover,),
+                          image: new CachedNetworkImageProvider(user_profile),
+                          fit: BoxFit.cover,
+                      ),
                       borderRadius: BorderRadius.all(Radius.circular(75.0)),
                     ),
                   ),
@@ -190,7 +180,7 @@ class _profileState extends State<profile> {
               ),
             ),
           ],
-        ),
+        
       ),
 
     );

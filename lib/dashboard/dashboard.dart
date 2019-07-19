@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'temperaturelist.dart';
 import 'NPKgraph.dart';
 
 class dashboard extends StatefulWidget {
@@ -9,14 +8,14 @@ class dashboard extends StatefulWidget {
 
 class _dashboardState extends State<dashboard> {
 
-  int _NPKcolor = 0xFFffffff , _TEMPcolor = 0xFFffffff , _GRAPHcolor = 0xFFffffff;
+  int _NPKcolor = 0xFFffffff, _GRAPHcolor = 0xFF000000;
   var _page;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _NPKcolor = 0xFF000000;
+    _NPKcolor = 0xFFffffff;
     _page = npkgraph();
   }
 
@@ -24,6 +23,7 @@ class _dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(64, 75, 96, .9),
       body: Column(
         children: <Widget>[
           new Container(
@@ -33,19 +33,18 @@ class _dashboardState extends State<dashboard> {
             child: Padding(
               padding: const EdgeInsets.only(left:10.0, right: 10.0),
               child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   GestureDetector(
                     onTap: (){
                       print('yo');
                       setState(() {
-                        _NPKcolor = 0xFF000000;
-                        _TEMPcolor = 0xFFffffff;
-                        _GRAPHcolor = 0xFFffffff;
+                        _NPKcolor = 0xFFffffff;
+                        _GRAPHcolor = 0xFF000000;
                         _page = npkgraph();
                       });
                     },
-                    child: new Text('NPK',
+                    child: new Text('IOT Sensor',
                       style: new TextStyle(
                         fontSize: 17.0,
                         color: Color(_NPKcolor),
@@ -56,29 +55,11 @@ class _dashboardState extends State<dashboard> {
                     onTap: (){
                       print('yo');
                       setState(() {
-                        _NPKcolor = 0xFFffffff;
-                        _TEMPcolor = 0xFF000000;
+                        _NPKcolor = 0xFF000000;
                         _GRAPHcolor = 0xFFffffff;
-                        _page = templist();
                       });
                     },
-                    child: new Text('TEMPERATURE',
-                      style: new TextStyle(
-                        fontSize: 17.0,
-                        color: Color(_TEMPcolor),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      print('yo');
-                      setState(() {
-                        _NPKcolor = 0xFFffffff;
-                        _TEMPcolor = 0xFFffffff;
-                        _GRAPHcolor = 0xFF000000;
-                      });
-                    },
-                    child: new Text('GRAPH',
+                    child: new Text('Satellite',
                       style: new TextStyle(
                         fontSize: 17.0,
                         color: Color(_GRAPHcolor),
