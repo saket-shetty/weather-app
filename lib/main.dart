@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'homepage.dart';
 import 'login/login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 void main() => runApp(new MaterialApp(
   home: homepage(),
@@ -22,15 +23,26 @@ class _homepageState extends State<homepage> {
 
   final storage = new FlutterSecureStorage();
   var token = '122';
+  var email;
+
+  final DatabaseReference reference = FirebaseDatabase.instance.reference();
+
+  void logintime(var newemail){
+    var time = DateTime.now();
+    reference.child('user').child('$newemail').child('Day').set('${time.day}');
+    reference.child('user').child('$newemail').child('Time').set('${time.hour}');
+  }
 
   Future get_token() async{
     token = await storage.read(key: 'session-key');
+    email = await storage.read(key: 'user-name');
 
     print('this is token :$token');
 
     if(token != null){
     Timer(Duration(seconds: 2), (){
       Navigator.push(context, MaterialPageRoute(builder: (context)=> mainhomepage()));
+      logintime(email);
     });
     }
     else if(token == null){
@@ -54,70 +66,51 @@ class _homepageState extends State<homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new Stack(
-        fit: StackFit.expand,
+      backgroundColor: Colors.white,
+      body: new Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          new Padding(padding: new EdgeInsets.all(60),
+          ),
 
-          // Background Image which in this case is some space image (as in the website)
-          new Container(
-            decoration: new BoxDecoration(
-              image: new DecorationImage(image: AssetImage('asset/background2.jpg'),
-              fit: BoxFit.fitHeight,
-              )
+          // Companies logo (Sensegrass)
+
+          new Center(
+            child: new Image.asset('asset/logo.png',
+            width: 300,
             ),
-            child: new BackdropFilter(
-              filter: new ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-              child: new Container(
-                decoration: new BoxDecoration(color: Colors.white.withOpacity(0.0)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left:20.0),
+            child: new Text(
+              'Machine Intelligence for smart and sustainable agriculture',
+              style: new TextStyle(color: Colors.black,
+              fontSize: 20.0,
+              fontWeight: FontWeight.w500,
               ),
             ),
           ),
-          new Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              new Padding(padding: new EdgeInsets.all(60),
-              ),
-
-              // Companies logo (Sensegrass)
-
-              new Center(
-                child: new Image.asset('asset/logo.png',
-                width: 300,
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left:20.0),
-                child: new Text(
-                  'Machine Intelligence for smart and sustainable agriculture',
-                  style: new TextStyle(color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircularProgressIndicator(),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                    ),
-                    Text(
-                      'app will start in a second',
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                          color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          )
+                Text(
+                  'app will start in a second',
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                      color: Colors.black),
+                )
+              ],
+            ),
+          ),
         ],
       )
     );

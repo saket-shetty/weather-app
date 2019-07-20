@@ -31,19 +31,22 @@ dependencies:
   flutter_circular_chart: ^0.1.0
   flutter_sparkline: ^0.1.0
   charts_flutter: ^0.6.0
-  google_maps_flutter: ^0.5.19
+  google_maps_flutter: ^0.5.19+2
   fl_chart: ^0.1.2
   modern_charts: ^0.1.17
   cached_network_image: ^1.1.0
+  firebase_database: ^3.0.4
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   material_design_icons_flutter:
-  firebase_auth:
-  google_sign_in: ^4.0.2
+  firebase_auth: ^0.11.1+11
+  google_sign_in: ^4.0.4
   flutter_twitter_login: ^1.1.0
   flutter_secure_storage: ^3.2.1+1
+  firebase_core: ^0.4.0+6
   
 
 
@@ -60,20 +63,18 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  assets:
-   - asset/logo.png
-   - asset/background2.jpg
-   - sensegreen.flr
-   - asset/anim.flr
-   - asset/profilebg.jpg
-   - asset/bgimageprofile.jpg
+  # To add assets to your application, add an assets section, like this: 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+
+  assets:
+    - asset/logo.png
+    - asset/background2.jpg
+
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

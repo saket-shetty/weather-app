@@ -5,6 +5,8 @@ import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 import 'package:sensegrass/homepage.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class loginpage extends StatefulWidget {
   @override
@@ -27,6 +29,21 @@ class _loginpageState extends State<loginpage> {
   var user_name;
   var user_profile;
   var user_sessionid;
+  final DatabaseReference ref = FirebaseDatabase.instance.reference();
+
+    void logintime_google(var newemail){
+      var time = DateTime.now();
+      ref.child('user').child('$newemail').child('Day').set('${time.day}');      
+      ref.child('user').child('$newemail').child('Time').set('${time.hour}');
+      ref.child('user').child('$newemail').child('From').set('Google');
+    }
+
+    void logintime_twitter(var newemail){
+      var time = DateTime.now();
+      ref.child('user').child('$newemail').child('Day').set('${time.day}');      
+      ref.child('user').child('$newemail').child('Time').set('${time.hour}');
+      ref.child('user').child('$newemail').child('From').set('Twitter');
+    }
 
   //google sign in part 
   //It is linked with my firebase account
@@ -56,6 +73,8 @@ class _loginpageState extends State<loginpage> {
     await storage.write(key: 'user-name', value: '$user_name');
     await storage.write(key: 'user-email', value: '$user_email');
     await storage.write(key: 'user-image', value: '$user_profile');
+
+    logintime_google(user_name);
 
     print("signed in " + user.displayName);
     return null;
@@ -96,11 +115,14 @@ class _loginpageState extends State<loginpage> {
           print('twitter name :${result.session.userId}');
           print('${result.session.token}');
 
+          logintime_twitter(user_name);
+
           // It is same as the above key value pair
           // But instead of google session id it will store twitter session id
 
           await storage.write(key: 'session-key', value: '$user_sessionid');
           await storage.write(key: 'user-name', value: '$user_name');
+          await storage.write(key: 'user-email', value: '$user_name');
           await storage.write(key: 'user-image', value: '$user_profile');
 
           Navigator.push(context, MaterialPageRoute(builder: (context)=>mainhomepage()));
