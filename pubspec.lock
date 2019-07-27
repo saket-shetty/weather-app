@@ -132,6 +132,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0"
+  flutter_dialogflow:
+    dependency: "direct main"
+    description:
+      name: flutter_dialogflow
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
   flutter_secure_storage:
     dependency: "direct dev"
     description:
@@ -172,8 +179,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.4"
-  http:
+  googleapis_auth:
     dependency: transitive
+    description:
+      name: googleapis_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.10"
+  http:
+    dependency: "direct main"
     description:
       name: http
       url: "https://pub.dartlang.org"
