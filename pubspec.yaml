@@ -49,6 +49,9 @@ dev_dependencies:
   flutter_twitter_login: ^1.1.0
   flutter_secure_storage: ^3.2.1+1
   firebase_core: ^0.4.0+6
+  flutter_web_view: ^0.0.6
+  webview_flutter: ^0.3.10+4
+  csv: ^4.0.3
 
 dependency_overrides:
   http: ^0.12.0+2
@@ -79,6 +82,8 @@ flutter:
   assets:
     - asset/logo.png
     - asset/background2.jpg
+    - asset/data1.csv
+    - asset/dataset.csv
 
 
   # To add custom fonts to your application, add a fonts section here,

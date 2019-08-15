@@ -315,6 +315,7 @@ class _weatherState extends State<weather> {
   Widget UI(var date, var time, var month, var temp, IconData icon, var descrip){
     return Container(
       color: Colors.grey[200],
+      width: MediaQuery.of(context).size.width/3,
       height: 200.0,
       child: Padding(
         padding: const EdgeInsets.only(left:8.0, right: 8.0, top:8.0),

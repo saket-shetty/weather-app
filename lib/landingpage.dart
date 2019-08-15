@@ -204,74 +204,88 @@ class _landingState extends State<landing> {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>weather()));
             },
-            child: new Card(
-              color: Colors.blue[200],
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Row(
-                      children: <Widget>[
-                        new Padding(padding: new EdgeInsets.all(8.0),),
-                        new Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new Padding(padding: new EdgeInsets.all(8.0),),
-                            new Text('$_area,'+' ${format_date.toString()}',
-                            style: new TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            new Text('$celsius'+'\u02DA'+'C', 
-                            style: new TextStyle(
-                              fontSize: 35.0,
-                              fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            new Text('Time $hour:$minute',
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: new Container(
+                decoration: new BoxDecoration(
+                  color: Colors.grey[100],
+                  boxShadow: [
+                    new BoxShadow(
+                      color: Colors.grey[400],
+                      blurRadius: 20.0,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30.0),
+                   bottomRight: Radius.circular(30.0)),
+                ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Row(
+                        children: <Widget>[
+                          new Padding(padding: new EdgeInsets.all(8.0),),
+                          new Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Padding(padding: new EdgeInsets.all(8.0),),
+                              new Text('$_area,'+' ${format_date.toString()}',
                               style: new TextStyle(
                                 fontSize: 15.0,
-                                fontWeight: FontWeight.w300
+                                fontWeight: FontWeight.w400,
+                                ),
                               ),
+                              new Text('$celsius'+'\u02DA'+'C', 
+                              style: new TextStyle(
+                                fontSize: 35.0,
+                                fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              new Text('Time $hour:$minute',
+                                style: new TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w300
+                                ),
+                              ),
+                            ],
+                          ),
+                          new Spacer(
+                            flex: 2,
+                          ),
+                          new Container(
+                            child: new Icon(_categories[_categoryindex]['icon'],
+                            size: 50.0,
+                            color: Colors.yellow,
                             ),
-                          ],
+                          ),
+                          new Spacer(
+                            flex: 1,
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:8.0, right: 8.0),
+                        child: new Divider(
+                          color: Colors.black38,
                         ),
-                        new Spacer(
-                          flex: 2,
-                        ),
-                        new Container(
-                          child: new Icon(_categories[_categoryindex]['icon'],
-                          size: 50.0,
-                          color: Colors.yellow,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:15.0),
+                        child: new Text(weather_description.toString(),
+                          textAlign: TextAlign.start,
+                          style: new TextStyle(
+                            fontSize: 16.0
                           ),
                         ),
-                        new Spacer(
-                          flex: 1,
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:8.0, right: 8.0),
-                      child: new Divider(
-                        color: Colors.black38,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:15.0),
-                      child: new Text(weather_description.toString(),
-                        textAlign: TextAlign.start,
-                        style: new TextStyle(
-                          fontSize: 16.0
-                        ),
-                      ),
-                    ),
-                    new Padding(
-                      padding: new EdgeInsets.all(6.0),
-                    )
-                  ],
-                ),
+                      new Padding(
+                        padding: new EdgeInsets.all(10.0),
+                      )
+                    ],
+                  ),
+              ),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.only(top:15.0, bottom:15.0),
             child: Center(
@@ -508,6 +522,8 @@ class _landingState extends State<landing> {
               ),
             ),
           ),
+
+          
         ],
       ),
     );

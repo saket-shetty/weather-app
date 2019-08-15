@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sensegrass/charts/lineargraph.dart';
-// import 'package:sensegrass/charts/piechart.dart';
 import 'package:sensegrass/charts/columnchart.dart';
+
 
 
 class npkgraph extends StatefulWidget {
@@ -20,7 +19,6 @@ class _npkgraphState extends State<npkgraph> {
   void initState() {
     // TODO: implement initState
     this._graphpage = columnchart();
-    dropdownValue = 'PieChart';
     super.initState();
   }
 
@@ -32,28 +30,6 @@ class _npkgraphState extends State<npkgraph> {
           child: Container(
           child: Column(
             children: <Widget>[
-              DropdownButton<String>(
-                    value: dropdownValue,
-                    onChanged: (String newValue) {
-                      setState(() {
-                        dropdownValue = newValue;
-                        if(newValue == 'LinearGraph'){
-                          this._graphpage = lineargraph();
-                        }
-                        else{
-                          // this._graphpage = piechart();
-                          this._graphpage = columnchart();
-                        }
-                      });
-                    },
-                items: <String>['LinearGraph', 'PieChart']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
               new Expanded(
                 child: _graphpage,
               )

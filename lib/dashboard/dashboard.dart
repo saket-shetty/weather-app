@@ -23,7 +23,9 @@ class _dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+      // backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+      backgroundColor: Colors.grey[200],
+
       body: Column(
         children: <Widget>[
           new Container(
@@ -31,7 +33,7 @@ class _dashboardState extends State<dashboard> {
             height: 30.0,
             color: Colors.deepPurpleAccent,
             child: Padding(
-              padding: const EdgeInsets.only(left:10.0, right: 10.0),
+              padding: const EdgeInsets.only(left:00.0, right: 00.0),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -51,21 +53,23 @@ class _dashboardState extends State<dashboard> {
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: (){
-                      print('yo');
-                      setState(() {
-                        _NPKcolor = 0xFF000000;
-                        _GRAPHcolor = 0xFFffffff;
-                      });
-                    },
-                    child: new Text('Satellite',
-                      style: new TextStyle(
-                        fontSize: 17.0,
-                        color: Color(_GRAPHcolor),
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: (){
+                  //     print('yo');
+                  //     setState(() {
+                  //       _NPKcolor = 0xFF000000;
+                  //       _GRAPHcolor = 0xFFffffff;
+                  //       // _page = satellite();
+                  //       // Navigator.push(context, MaterialPageRoute(builder: (context)=>satellite()));
+                  //     });
+                  //   },
+                  //   child: new Text('Satellite',
+                  //     style: new TextStyle(
+                  //       fontSize: 17.0,
+                  //       color: Color(_GRAPHcolor),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
