@@ -31,7 +31,7 @@ class _mainhomepageState extends State<mainhomepage> {
         onWillPop: () async => false,
         child: Scaffold(
         appBar: new AppBar(
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Colors.green[600],
           title: new Text('SenseGrass',
           style: new TextStyle(fontSize: 18.0,
             fontWeight: FontWeight.w300,
@@ -51,7 +51,7 @@ class _mainhomepageState extends State<mainhomepage> {
           },
           icon: Icon(Icons.mail),
           label: Text("Expert"),
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Colors.green[600],
         ),
 
         bottomNavigationBar: BottomNavigationBar(

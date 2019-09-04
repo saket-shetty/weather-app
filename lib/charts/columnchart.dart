@@ -120,6 +120,7 @@ class _columnchartState extends State<columnchart> {
       padding: const EdgeInsets.only(top:5.0, bottom: 5.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           new Row(
             crossAxisAlignment: CrossAxisAlignment.center,

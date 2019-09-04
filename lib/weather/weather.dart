@@ -166,7 +166,7 @@ class _weatherState extends State<weather> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurpleAccent
+        backgroundColor: Colors.green[600]
       ),
       body: SafeArea(
         child: Column(
@@ -223,7 +223,7 @@ class _weatherState extends State<weather> {
                           new Container(
                             child: new Icon(card_icon,
                             size: 65.0,
-                            color: Colors.blue,
+                            color: Colors.deepPurpleAccent,
                             ),
                           ),
                           new Spacer(
@@ -341,7 +341,7 @@ class _weatherState extends State<weather> {
                 new Icon(
                   icon,
                   size: 65.0,
-                  color: Colors.blue,
+                  color: Colors.deepPurpleAccent,
                 ),
                 new Padding(
                   padding: new EdgeInsets.all(5.0),

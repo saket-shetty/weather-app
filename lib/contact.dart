@@ -52,7 +52,7 @@ class _contactState extends State<contact> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.green[600],
       ),
 
       // Body of the contact page
@@ -156,7 +156,7 @@ class _contactState extends State<contact> {
                       ),
                     ),
                     decoration: new BoxDecoration(
-                      color: Colors.deepPurpleAccent,
+                      color: Colors.green[600],
                       borderRadius: new BorderRadius.circular(25.0)
                     ),
                   ),

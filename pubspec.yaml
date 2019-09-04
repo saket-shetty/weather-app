@@ -50,8 +50,9 @@ dev_dependencies:
   flutter_secure_storage: ^3.2.1+1
   firebase_core: ^0.4.0+6
   flutter_web_view: ^0.0.6
-  webview_flutter: ^0.3.10+4
+  webview_flutter: ^0.3.13
   csv: ^4.0.3
+  avatar_glow: ^1.0.0
 
 dependency_overrides:
   http: ^0.12.0+2
@@ -84,6 +85,7 @@ flutter:
     - asset/background2.jpg
     - asset/data1.csv
     - asset/dataset.csv
+    - asset/senselogo.jpg
 
 
   # To add custom fonts to your application, add a fonts section here,

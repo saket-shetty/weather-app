@@ -31,7 +31,7 @@ class _dashboardState extends State<dashboard> {
           new Container(
             width: MediaQuery.of(context).size.width,
             height: 30.0,
-            color: Colors.deepPurpleAccent,
+            color: Colors.green[600],
             child: Padding(
               padding: const EdgeInsets.only(left:00.0, right: 00.0),
               child: new Row(
@@ -53,23 +53,6 @@ class _dashboardState extends State<dashboard> {
                       ),
                     ),
                   ),
-                  // GestureDetector(
-                  //   onTap: (){
-                  //     print('yo');
-                  //     setState(() {
-                  //       _NPKcolor = 0xFF000000;
-                  //       _GRAPHcolor = 0xFFffffff;
-                  //       // _page = satellite();
-                  //       // Navigator.push(context, MaterialPageRoute(builder: (context)=>satellite()));
-                  //     });
-                  //   },
-                  //   child: new Text('Satellite',
-                  //     style: new TextStyle(
-                  //       fontSize: 17.0,
-                  //       color: Color(_GRAPHcolor),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

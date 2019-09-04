@@ -174,12 +174,12 @@ class _loginpageState extends State<loginpage> {
       onWillPop: () async => false,
       child: Scaffold(
       resizeToAvoidBottomPadding: true,
-      
+      backgroundColor: Colors.white,
       body: ListView(
         children: <Widget>[
-          new Padding(
-            padding: new EdgeInsets.all(30.0),
-          ),
+          // new Padding(
+          //   padding: new EdgeInsets.all(30.0),
+          // ),
           Center(
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -191,7 +191,7 @@ class _loginpageState extends State<loginpage> {
 
                 new Container(
                   width: MediaQuery.of(context).size.width-80.0,
-                  child: new Image.asset('asset/logo.png'),
+                  child: new Image.asset('asset/senselogo.jpg'),
                 ),
 
                 // Email textField
@@ -202,10 +202,12 @@ class _loginpageState extends State<loginpage> {
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     autofocus: false,
+                    
                     decoration: InputDecoration(
+                      icon: Icon(Icons.person),
                       hintText: 'Email',
                       contentPadding: EdgeInsets.fromLTRB(20.0, 13.0, 20.0, 13.0),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                     ),
                   ),
                 ),
@@ -221,8 +223,9 @@ class _loginpageState extends State<loginpage> {
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
+                      icon: Icon(Icons.lock),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 13.0, 20.0, 13.0),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
                     ),
                   ),
                 ),
@@ -233,7 +236,7 @@ class _loginpageState extends State<loginpage> {
                 // This part is remaining
 
                 Container(
-                  width: 200,
+                  width: 150,
                   height: 50.0,
                   child: new InkWell(
                     onTap: () {
@@ -241,14 +244,14 @@ class _loginpageState extends State<loginpage> {
                     },
                     child: Material(
                       borderRadius: BorderRadius.circular(25.0),
-                      color: Colors.deepPurpleAccent,
-                      shadowColor: Colors.deepPurpleAccent.withOpacity(0.8),
-                      elevation: 7.0,
+                      color: Colors.white,
+                      shadowColor: Colors.white.withOpacity(1.0),
+                      elevation: 9.0,
                       child: Center(
                         child: new Text(
                           'Login',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 18.0,
                             fontWeight: FontWeight.w300,
                           ),
@@ -265,15 +268,13 @@ class _loginpageState extends State<loginpage> {
                     'Forgot password?',
                     style: TextStyle(color: Colors.black54),
                   ),
-                  onPressed: () {
-                    builder:(){
-                      theme: ThemeData.dark();
-                    };
-                  },
+                  onPressed: () {},
                 ),
 
-                new Padding(
-                  padding: new EdgeInsets.all(5.0),
+                new Text('OR',
+                  style: new TextStyle(
+                    fontSize: 18.0
+                  ),
                 ),
 
                 // This Row contains SignIn with Google and Twitter button

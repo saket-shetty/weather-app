@@ -131,7 +131,7 @@ class _windspeedState extends State<windspeed> {
             fontWeight: FontWeight.w300,
           ),
         ),
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.green[600],
         centerTitle: true,
       ),
 

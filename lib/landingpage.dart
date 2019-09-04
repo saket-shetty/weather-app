@@ -86,6 +86,9 @@ class _landingState extends State<landing> {
     await storage.write(key: 'mintemp', value: '$mintemp');
     await storage.write(key: 'maxtemp', value: '$maxtemp');
 
+    await storage.write(key: 'lat', value: '${weather.latitude}');
+    await storage.write(key: 'long', value: '${weather.longitude}');
+
     celsius = weather.temperature.celsius.roundToDouble();
     this.celsius = celsius;
 
@@ -254,7 +257,7 @@ class _landingState extends State<landing> {
                           new Container(
                             child: new Icon(_categories[_categoryindex]['icon'],
                             size: 50.0,
-                            color: Colors.yellow,
+                            color: Colors.deepPurpleAccent,
                             ),
                           ),
                           new Spacer(

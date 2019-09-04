@@ -133,7 +133,8 @@ class _soilhumidityState extends State<soilhumidity> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.green[600],
+
       ),
 
       body: Container(

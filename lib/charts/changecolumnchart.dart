@@ -19,6 +19,8 @@ class _changecolumnchartState extends State<changecolumnchart> {
 
   int _healthColor;
 
+  var overall_health = 'ACCEPTABLE';
+
   bool show_diff_page = false;
 
   List<List<dynamic>> data = [];
@@ -123,6 +125,7 @@ class _changecolumnchartState extends State<changecolumnchart> {
     // TODO: implement initState
     get_data();
     loadAsset();
+    fontcolor = Colors.green;
     super.initState();
   }
 
@@ -138,8 +141,6 @@ class _changecolumnchartState extends State<changecolumnchart> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      // backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-
       appBar: new AppBar(
         title: new Text('$name',
           style: new TextStyle(
@@ -148,7 +149,7 @@ class _changecolumnchartState extends State<changecolumnchart> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Colors.green[600],
       ),
 
       body: Center(
@@ -184,9 +185,11 @@ class _changecolumnchartState extends State<changecolumnchart> {
                             // double.parse(newvalue);
                             if(newvalue >= low && newvalue <= high){
                               fontcolor = Colors.green;
+                              overall_health = 'ACCEPTABLE';
                             }
                             else if(newvalue < low || newvalue > high){
                               fontcolor = Colors.red;
+                              overall_health = 'NOT ACCEPATBLE';
                             }
                             else if(newvalue <=-1){
                               health = 'Sorry, value cannot be in negative';
@@ -215,46 +218,39 @@ class _changecolumnchartState extends State<changecolumnchart> {
 
                         new Padding(padding: new EdgeInsets.all(10.0),),
 
-                        new GestureDetector(
+                        new IconButton(
 
-                          onLongPressUp: (){
-
-                            print('this is up');
-                            longpressup = true;
-                            setState(() {
-                              
-                            });
-                          },
-
-                          onLongPress: (){
-                            longpressup = false;
-                            health = 'ACCEPTABLE';
-                            if(value <= high){
-                              longpress();
-                            }
-                          },
-
-                          onTap: (){
+                          onPressed: (){
                             health = 'ACCEPTABLE';
                               newvalue = newvalue + 1.0;
 
                             if(newvalue <= high && newvalue >= low){
                               fontcolor = Colors.green;
+                              overall_health = 'ACCEPTABLE';
                             }
                             else if(newvalue > high || newvalue < low){
                               fontcolor = Colors.red;
+                              overall_health = 'NOT ACCEPTABLE';
                             }
                             setState(() {
                             });
                           },
 
-                          child: Icon(LineIcons.plus_circle,
+                          icon : Icon(LineIcons.plus_circle,
                             color: Colors.black,
                             size: 30,
                           ),
                         ),
                       ],
                     ),
+
+                    new Text('$overall_health',
+                      style: new TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400,
+                        color: fontcolor
+                      ),
+                    )
                   ],
                 ),
 

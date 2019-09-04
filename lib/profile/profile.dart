@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:sensegrass/charts/profile_sensor_data.dart';
 import 'package:sensegrass/login/login.dart';
 import 'package:sensegrass/weather/weather.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 
 class profile extends StatefulWidget {
@@ -48,23 +50,24 @@ class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(64, 75, 96, .9),
+      backgroundColor: Colors.grey[100],
       body: Column(
           children: <Widget>[
-            GestureDetector(
-              onTap: (){
-                signout();
-                storage.deleteAll();
-              },
-              child: Align(
-                alignment: Alignment.bottomRight,
+
+            Align(
+              alignment: Alignment.bottomRight,
+              child: new FlatButton(
+                onPressed: (){
+                  signout();
+                  storage.deleteAll();
+                },
                 child: Padding(
-                  padding: const EdgeInsets.only(top:8.0, right: 8.0),
+                  padding: const EdgeInsets.only(right: 8.0),
                   child: new Text('Log Out',
                     style: new TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.w600
                     ),
                   ),
                 ),
@@ -76,29 +79,36 @@ class _profileState extends State<profile> {
               child: new Column(      
                 children: <Widget>[
 
-                  new Padding(padding: new EdgeInsets.all(10.0),),
-                  Container(
-                  width: 120.0,
-                  height: 120.0,
-                  decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
-                      image: DecorationImage(
-                          image: new CachedNetworkImageProvider(user_profile),
-                          fit: BoxFit.cover,
+                  AvatarGlow(
+                    startDelay: Duration(milliseconds: 1000),
+                    glowColor: Colors.deepPurpleAccent,
+                    endRadius: 90.0,
+                    duration: Duration(milliseconds: 2000),
+                    repeat: true,
+                    showTwoGlows: true,
+                    repeatPauseDuration: Duration(milliseconds: 10),
+
+                    child: Container(
+                      width: 120.0,
+                      height: 120.0,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurpleAccent,
+                        image: DecorationImage(
+                            image: new CachedNetworkImageProvider(user_profile),
+                            fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(75.0)),
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(75.0)),
                     ),
                   ),
-                  new Padding(
-                    padding: new EdgeInsets.all(10.0),
-                  ),
+                  
 
                   new Text(user_name,
                     style: new TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w300,
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w500,
                       fontFamily: 'SourceSansPro',
-                      color: Colors.white
+                      color: Colors.black
                     ),
                   ),
 
@@ -115,6 +125,8 @@ class _profileState extends State<profile> {
                           _cropcolor = 0xFFF44A4A;
                           _weathercolor = 0xFF00FFFFFF;
 
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>profile_sensor_data()));
+
                           setState(() {
                             
                           });
@@ -130,7 +142,7 @@ class _profileState extends State<profile> {
                           child: new Center(
                             child: new Text('Crops',
                               style: new TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16.0,
                                 fontFamily: 'SourceSansPro'
@@ -164,7 +176,7 @@ class _profileState extends State<profile> {
                           child: new Center(
                             child: new Text('Weather',
                                style: new TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16.0,
                                 fontFamily: 'SourceSansPro'
